@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Andika);
+
+*
+{
+margin:0px;
+padding:0px;
+outline:none;
+}
+
+html{height:100%}
+ 
+body{
+    background-color:  #374151;
+width: 100vw;
+height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#menu
+{
+width: 280px;
+margin: 5% auto;
+position: relative;
+}
+
+#menu:before
+{
+width: 294px;
+padding: 31.5px 0px;
+border-radius: 30px;
+position: absolute;
+background: #fff;
+content: "";
+left: -7px;
+top: -6px;
+z-index: -1;
+opacity: 0.3;
+}
+
+#menu:after
+{
+width: 12px;
+height: 20px;
+padding:0px 4px 0px 4px;
+border-radius: 50%;
+position: absolute;
+background-color: #374151;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d01768', endColorstr='#ea2a72',GradientType=0 ); /* IE6-9 */
+content: "OR";
+left: 46%;
+top: 15px;
+border:1px solid #374151;
+font-size:0.5em;
+color:#374151;
+line-height:20px;
+letter-spacing:-1px;
+}
+
+a{
+font-size:0.7em;
+text-decoration:none;
+display:block;
+float:left;
+padding: 17px 0px;
+width:49.6%;
+text-align:center;
+color:#efdcdc;
+background-color: #374151;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f73c82', endColorstr='#c21063',GradientType=0 ); /* IE6-9 */
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;
+}
+a:hover
+{
+box-shadow:inset 0px 0px 10px 1px #5a677e;
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-ms-transition:0.5s;
+-o-transition:0.5s;
+transition:0.5s;
+}
+
+#menu a:first-child{border-radius: 25px 0px 0px 25px;border-right:1px solid #374151;}
+#menu a:last-child{border-radius: 0px 25px 25px 0px;border-left:1px solid #374151;}
+
+.heading{
+    font-size: large;
+    font-weight: 700;
+    color: white;
+}
+    </style>
+</head>
+
+<body>
+    
+    <div>
+        <h1 class="heading">Choose A SignUp Type</h1>
+        <div id="menu">
+            <a href="/visitorSignUp">Buyer</a>
+            <a href="/register">Seller</a>
+        </div>
+    </div>
+    
+</body>
+</html>
