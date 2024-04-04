@@ -20,32 +20,38 @@ const path = require("path");
       );
     });
 
-    // Define the /login endpoint for POST requests
     router.post("/login", async (req, res) => {
       const data = req.body;
-      const user = await userCollection.findOne({ name: data.name });
-
-      if (!user) {
-        return res.status(401).send("Invalid username or password");
+    
+      // Check if the login field is provided
+      if (!data.name) {
+        return res.status(400).send("Please enter username, email address, or phone number.");
       }
-
+    
+      // Attempt to find the user based on the provided value
+      let user = await userCollection.findOne({ $or: [{ name: data.name }, { email: data.name }, { phone: data.name }] });
+    
+      if (!user) {
+        return res.status(401).send("Invalid login credentials.");
+      }
+    
       const isPasswordValid = await bcrypt.compare(
         data.password,
         user.password
       );
-
+    
       if (!isPasswordValid) {
-        return res.status(401).send("Invalid username or password");
+        return res.status(401).send("Invalid login credentials.");
       }
-
-      console.log("Username and Password validated", data, user);
+    
+      console.log("Login successful for user:", user);
       req.session.isAuthenticated = true;
       req.session.username = user._id;
       req.session.role = user.role;
       req.session.save((err) => {
         if (err) {
-          // handle error
           console.log(err);
+          return res.status(500).send("Internal Server Error"); // Handle error more gracefully
         } else {
           if (user.role == "admin") {
             console.log(`Admin account redirected to dashboard ${user.role}`);
@@ -56,10 +62,13 @@ const path = require("path");
           } else if (user.role == "company") {
             console.log(`Company account redirected to landing ${user.role}`);
             res.redirect("/");
+          } else {
+            // Handle unexpected role scenario (optional)
           }
         }
       });
     });
+    
   } catch (error) {
     console.error("Error in login route:", error);
     res.status(500).send("Internal server error");
